@@ -6,6 +6,11 @@ import (
 
 // value, ok = jsonParsed.Path("parameters.timezone").Data().(string)
 
+type Toto struct {
+	Name string
+	Age  int
+}
+
 type VelibStatus struct {
 	Nhits      int `json:"nhits"`
 	Parameters struct {
