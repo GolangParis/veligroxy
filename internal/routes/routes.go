@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"github.com/fagossa/golang-rest-api/internal/controllers"
-	"github.com/fagossa/golang-rest-api/internal/diagnostics"
+	"github.com/GolangParis/veligroxy/internal/controllers"
+	"github.com/GolangParis/veligroxy/internal/diagnostics"
 	"github.com/gorilla/mux"
 )
 

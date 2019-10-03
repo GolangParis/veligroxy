@@ -5,7 +5,7 @@ A gopher-friendly velib proxy
 ## Creating a module
 
 ```
-$ go mod init github.com/fagossa/golang-rest-api
+$ go mod init github.com/GolangParis/veligroxy
 ```
 
 

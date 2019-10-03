@@ -1,4 +1,4 @@
-module github.com/fagossa/golang-rest-api
+module github.com/GolangParis/veligroxy
 
 go 1.13
 
