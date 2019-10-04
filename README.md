@@ -1,6 +1,8 @@
 veligroxy, A gopher-friendly velib proxy
 =======
 
+[![Build Status](https://travis-ci.com/GolangParis/veligroxy.svg?branch=master)](https://travis-ci.com/GolangParis/veligroxy)
+
 
 ## Building
 
