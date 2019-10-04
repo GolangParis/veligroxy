@@ -11,5 +11,8 @@ build:
 		-X ${PROJECT}/internal/version.BuildTime=${BUILD_TIME}" \
 		-o bin/server ${PROJECT}/cmd/api
 
+test:
+	GO111MODULE=on go test ./... -v
+
 run:
 		PORT=8080 DIAG_PORT=8081 ./bin/server

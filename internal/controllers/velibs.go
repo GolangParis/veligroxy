@@ -15,17 +15,23 @@ func ReadVelib() http.HandlerFunc {
 	long := "2.402782"
 	radius := "100"
 
+	queryParams := map[string][]string{
+		"dataset":            []string{"velib-disponibilite-en-temps-reel"},
+		"facet":              []string{"overflowactivation", "creditcard", "kioskstate", "station_state"},
+		"geofilter.distance": []string{fmt.Sprintf("%s,%s,%s", lat, long, radius)},
+	}
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		route := "https://opendata.paris.fr/api/records/1.0/search"
 
-		// Assemblage route + query string avec encodage des caractères spéciaux
-		params := fmt.Sprintf("?dataset=velib-disponibilite-en-temps-reel&facet=overflowactivation&facet=creditcard&facet=kioskstate&facet=station_state&geofilter.distance=%s,%s,%s",
-			lat, long, radius)
-		url := fmt.Sprintf("%s/%s", route, html.EscapeString(params))
+		queryParams := buildQueryParams("?", queryParams)
+
+		url := fmt.Sprintf("%s/%s", route, html.EscapeString(queryParams))
 
 		payload := models.VelibStatus{}
 		err := getJson(url, &payload)
 		if err != nil {
+			log.Warn("Error reading velib status")
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
