@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	_ "encoding/json"
 	"fmt"
 	"html"
 	"net/http"
@@ -34,18 +33,8 @@ func ReadVelib() http.HandlerFunc {
 		log.Info("Reading velib status was OK")
 
 		response, _ := json.Marshal(&payload)
-		w.Write(response)
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
+		w.Write(response)
 	}
-}
-
-func getJson(url string, target interface{}) error {
-	r, err := http.Get(url)
-	if err != nil {
-		return err
-	}
-	defer r.Body.Close()
-
-	return json.NewDecoder(r.Body).Decode(target)
 }
