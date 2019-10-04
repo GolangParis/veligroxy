@@ -2,7 +2,7 @@ veligroxy, A gopher-friendly velib proxy
 =======
 
 
-## Running
+## Building
 
 ```
 $ make build
