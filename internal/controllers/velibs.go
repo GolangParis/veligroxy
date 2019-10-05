@@ -11,14 +11,12 @@ import (
 )
 
 func ReadVelib() http.HandlerFunc {
-	lat := "48.853169"
-	long := "2.402782"
-	radius := "100"
+	point := models.SearchPoint { Lat: "48.853169", Long: "2.402782", Radius: "100" }
 
 	queryParams := map[string][]string{
 		"dataset":            []string{"velib-disponibilite-en-temps-reel"},
 		"facet":              []string{"overflowactivation", "creditcard", "kioskstate", "station_state"},
-		"geofilter.distance": []string{fmt.Sprintf("%s,%s,%s", lat, long, radius)},
+		"geofilter.distance": []string{point.ToString()},
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {

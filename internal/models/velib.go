@@ -2,14 +2,19 @@ package models
 
 import (
 	"time"
+	"fmt"
 )
 
-// value, ok = jsonParsed.Path("parameters.timezone").Data().(string)
-
-type Toto struct {
-	Name string
-	Age  int
+type SearchPoint struct {
+	Lat 		string
+	Long  	string
+	Radius 	string
 }
+
+func (s SearchPoint) ToString() string {
+   return fmt.Sprintf("%s,%s,%s", s.Lat, s.Long, s.Radius)
+}
+
 
 type VelibStatus struct {
 	Nhits      int `json:"nhits"`
