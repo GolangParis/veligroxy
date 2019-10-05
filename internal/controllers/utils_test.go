@@ -16,6 +16,6 @@ func TestBuildQueryUrl(t *testing.T) {
 	expected := "?dataset=velib-disponibilite-en-temps-reel&facet=overflowactivation&facet=creditcard&facet=kioskstate&facet=station_state&geofilter.distance=1,2,3"
 
 	if response != expected {
-		t.Errorf("Query build was incorrect, got: %s, want: %s.", response, expected)
+		t.Errorf("Query build was incorrect, got: <%s>, want: <%s>", response, expected)
 	}
 }
