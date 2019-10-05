@@ -18,6 +18,13 @@ $ make run
 ```
 
 ## Testing
+
+```
+$ make test
+```
+
+
+## Testing
 ```
 $ curl -X GET -H 'Content-Type: application/json' -i http://localhost:8080/velibs
 ```
