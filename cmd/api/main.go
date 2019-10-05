@@ -56,8 +56,7 @@ func main() {
 
 	go func() {
 		logger.Info("Diagnostics server is preparing...")
-		diag.ListenAndServe()
-		err := server.ListenAndServe()
+		err := diag.ListenAndServe()
 		if err != nil && err != http.ErrServerClosed {
 			shutdown <- err
 		}
