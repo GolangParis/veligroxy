@@ -1,4 +1,4 @@
-package controllers
+package services
 
 import (
 	"encoding/json"
@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func getJson(url string, target interface{}) error {
+func GetJson(url string, target interface{}) error {
 	r, err := http.Get(url)
 	if err != nil {
 		return err
@@ -17,7 +17,7 @@ func getJson(url string, target interface{}) error {
 	return json.NewDecoder(r.Body).Decode(target)
 }
 
-func buildQueryParams(prefix string, params map[string][]string) string {
+func BuildQueryParams(prefix string, params map[string][]string) string {
 	var b strings.Builder
 	b.WriteString(prefix)
 

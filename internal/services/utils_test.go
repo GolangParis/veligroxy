@@ -1,4 +1,4 @@
-package controllers
+package services
 
 import (
 	"reflect"
@@ -15,7 +15,7 @@ func TestBuildQueryUrlWithElements(t *testing.T) {
 	}
 
 	// When
-	response := buildQueryParams("?", queryParams)
+	response := BuildQueryParams("?", queryParams)
 	responseTokens := strings.Split(response, "&")
 
 	// Then
@@ -32,7 +32,7 @@ func TestBuildQueryUrlWhenEmpty(t *testing.T) {
 	emptyQueryParams := map[string][]string{}
 
 	// When
-	response := buildQueryParams("?", emptyQueryParams)
+	response := BuildQueryParams("?", emptyQueryParams)
 	responseTokens := strings.Split(response, "&")
 
 	// Then

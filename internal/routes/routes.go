@@ -8,7 +8,7 @@ import (
 
 func BusinessRoutes() *mux.Router {
 	r := mux.NewRouter()
-	r.HandleFunc("/velibs", controllers.ReadVelib()).Methods("GET")
+	r.HandleFunc("/velibs", controllers.QueryVelibStatus()).Methods("GET")
 	return r
 }
 

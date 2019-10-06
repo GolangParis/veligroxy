@@ -2,32 +2,18 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
-	"html"
 	"net/http"
 
 	"github.com/GolangParis/veligroxy/internal/models"
+	"github.com/GolangParis/veligroxy/internal/services"
 	log "github.com/sirupsen/logrus"
 )
 
-func ReadVelib() http.HandlerFunc {
-	point := models.SearchPoint { Lat: "48.853169", Long: "2.402782", Radius: "100" }
-
-	queryParams := map[string][]string{
-		"dataset":            []string{"velib-disponibilite-en-temps-reel"},
-		"facet":              []string{"overflowactivation", "creditcard", "kioskstate", "station_state"},
-		"geofilter.distance": []string{point.ToString()},
-	}
+func QueryVelibStatus() http.HandlerFunc {
+	point := models.SearchPoint{Lat: "48.853169", Long: "2.402782", Radius: "100"}
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		route := "https://opendata.paris.fr/api/records/1.0/search"
-
-		queryParams := buildQueryParams("?", queryParams)
-
-		url := fmt.Sprintf("%s/%s", route, html.EscapeString(queryParams))
-
-		payload := models.VelibStatus{}
-		err := getJson(url, &payload)
+		payload, err := services.GetVelibStatus(point)
 		if err != nil {
 			log.Warn("Error reading velib status")
 			http.Error(w, err.Error(), http.StatusBadRequest)
