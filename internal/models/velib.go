@@ -1,20 +1,29 @@
 package models
 
 import (
-	"time"
 	"fmt"
+	"time"
 )
 
 type SearchPoint struct {
-	Lat 		string
-	Long  	string
-	Radius 	string
+	Lat    string
+	Long   string
+	Radius string
 }
 
 func (s SearchPoint) ToString() string {
-   return fmt.Sprintf("%s,%s,%s", s.Lat, s.Long, s.Radius)
+	return fmt.Sprintf("%s,%s,%s", s.Lat, s.Long, s.Radius)
 }
 
+type VelibStation struct {
+	Name            string `json:"station_name"`
+	Code            string `json:"station_code"`
+	State           string `json:"station_state"`
+	Dist            string `json:"dist"`
+	Maxbikeoverflow int    `json:"maxbikeoverflow"`
+	Densitylevel    string `json:"densitylevel"`
+	Nbfreedock      int    `json:"nbfreedock"`
+}
 
 type VelibStatus struct {
 	Nhits      int `json:"nhits"`
@@ -42,7 +51,6 @@ type VelibStatus struct {
 			StationType        string    `json:"station_type"`
 			StationCode        string    `json:"station_code"`
 			Creditcard         string    `json:"creditcard"`
-			Station            string    `json:"station"`
 			Nbfreedock         int       `json:"nbfreedock"`
 			Duedate            string    `json:"duedate"`
 			Nbebikeoverflow    int       `json:"nbebikeoverflow"`
@@ -68,4 +76,21 @@ type VelibStatus struct {
 		} `json:"facets"`
 		Name string `json:"name"`
 	} `json:"facet_groups"`
+}
+
+// ExtractStations extract the station information from the velib status
+func (status VelibStatus) ExtractStations() []VelibStation {
+	var stations []VelibStation
+	for _, s := range status.Records {
+		newStation := VelibStation{
+			Name:            s.Fields.StationName,
+			Code:            s.Fields.StationCode,
+			State:           s.Fields.StationState,
+			Nbfreedock:      s.Fields.Nbfreeedock,
+			Maxbikeoverflow: s.Fields.Maxbikeoverflow,
+			Densitylevel:    s.Fields.Densitylevel,
+			Dist:            s.Fields.Dist}
+		stations = append(stations, newStation)
+	}
+	return stations
 }

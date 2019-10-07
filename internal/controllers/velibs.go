@@ -11,7 +11,10 @@ import (
 
 // QueryVelibStatus provide the endpoint to Velib status
 func QueryVelibStatus() http.HandlerFunc {
-	point := models.SearchPoint{Lat: "48.853169", Long: "2.402782", Radius: "100"}
+	point := models.SearchPoint{
+		Lat:    "48.853169",
+		Long:   "2.402782",
+		Radius: "100"}
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		payload, err := services.GetVelibStatus(point)
@@ -23,6 +26,8 @@ func QueryVelibStatus() http.HandlerFunc {
 			return
 		}
 
+		stations := payload.ExtractStations()
+
 		log.WithFields(log.Fields{
 			"Lat":     point.Lat,
 			"Long":    point.Long,
@@ -30,7 +35,7 @@ func QueryVelibStatus() http.HandlerFunc {
 			"Results": len(payload.Records),
 		}).Info("Success velib status was OK")
 
-		response, _ := json.Marshal(&payload)
+		response, _ := json.Marshal(&stations)
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write(response)
