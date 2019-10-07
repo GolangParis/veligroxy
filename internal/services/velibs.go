@@ -7,6 +7,7 @@ import (
 	"github.com/GolangParis/veligroxy/internal/models"
 )
 
+// GetVelibStatus query the external opendata endpoint
 func GetVelibStatus(point models.SearchPoint) (models.VelibStatus, error) {
 	route := "https://opendata.paris.fr/api/records/1.0/search"
 
